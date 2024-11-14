@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .register-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .register-container .form-control {
+            margin-bottom: 15px;
+        }
+
+        .register-container .btn-primary {
+            width: 100%;
+        }
+
+        .register-container p {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Display DateTime and IP Address -->
+    <div class="text-center mb-4">
+        <p><strong>Current Date & Time:</strong> <span id="currentDateTime"></span></p>
+        <p><strong>Your IP Address:</strong> <span id="ip-address"></span></p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="register-container">
+        <h2>Create an Account</h2>
+        <form action="/users/signup" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label for="passwordConfirmation" class="form-label">Confirm Password:</label>
+                <input type="password" name="passwordConfirmation" id="passwordConfirmation" class="form-control"
+                    placeholder="Re-enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <p class="mt-3">
+            Already have an account? <a href="/users/login" class="text-primary">Login</a>
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Display current date and time
+        document.getElementById('currentDateTime').textContent = new Date().toLocaleString();
+
+        // Fetch and display IP address
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').textContent = data.ip;
+            })
+            .catch(error => {
+                console.error('Error fetching IP address:', error);
+            });
+    </script>
+</body>
+
+</html>
